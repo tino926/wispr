@@ -1,3 +1,9 @@
+This repo is for addressing this error:  
+```
+InsecureRequestWarning: Unverified HTTPS request is being made. Adding 
+certificate  verification is strongly advised
+```
+
 This package provides a simple ``wispr`` command-line tool to authenticate
 against a WISPr server.
 
