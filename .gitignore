@@ -11,3 +11,6 @@ wispr.egg-info
 /include
 /lib
 /pip-selfcheck.json
+**/pri/
+**/.vscode/
+

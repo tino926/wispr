@@ -12,6 +12,8 @@ except ImportError:
     import urllib.parse as urlparse
 import requests
 
+import configparser
+
 TIMEOUT = 5
 
 MSG_REDIRECT = '100'
@@ -31,6 +33,16 @@ RES_LOGIN_ABORT = '151'
 RES_PROXY_DETECTION = '200'
 RES_AUTH_PENDING = '201'
 RES_INTERNAL_ERROR = '255'
+
+
+# Check if the ./pri directory exists and contains settings.ini
+if os.path.exists('./pri'):
+    # Use configparser to read the settings
+    config = configparser.ConfigParser()
+    config.read('./pri/setting.ini')
+    if config.has_option('LOGIN', 'user'):
+        USER = config.get('LOGIN', 'user')
+        PASS = config.get('LOGIN', 'pass')
 
 
 def parse_wispr(r):
@@ -211,6 +223,13 @@ def main():
     parser.add_argument('-D', '--detect', default=False, action='store_true',
             help='Only detect WISPr support')
     options = parser.parse_args()
+
+    if not options.password:
+        if isinstance('USER', str):
+            options.username = USER
+            options.password = PASS
+
+
     if not (options.detect or options.logout or options.password):
         print('You must provide a username and password', file=sys.stderr)
         sys.exit(2)
